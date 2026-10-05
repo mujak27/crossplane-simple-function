@@ -1,0 +1,37 @@
+apiVersion: apiextensions.crossplane.io/v2
+kind: CompositeResourceDefinition
+metadata:
+  name: xbuckets.example.org
+spec:
+  scope: Namespaced
+  group: example.org
+  names:
+    kind: XBuckets
+    plural: xbuckets
+    singular: xbuckets
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        properties:
+          spec:
+            properties:
+              names:
+                items:
+                  type: string
+                minItems: 1
+                type: array
+              region:
+                enum:
+                - us-east-1
+                - us-east-2
+                type: string
+            required:
+            - names
+            - region
+            type: object
+        required:
+        - spec
+        type: object
